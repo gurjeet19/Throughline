@@ -1,0 +1,24 @@
+{
+  "name": "@throughline/github",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.0",
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@octokit/auth-app": "^8.2.0",
+    "@octokit/webhooks": "^13.4.1",
+    "@octokit/webhooks-types": "^7.6.1",
+    "octokit": "^5.0.5"
+  }
+}

@@ -1,0 +1,1 @@
+ALTER TABLE "workspace_subscription" ADD COLUMN "ai_coding_agent_runs_used" integer DEFAULT 0 NOT NULL;

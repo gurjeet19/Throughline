@@ -1,0 +1,16 @@
+{
+  "name": "throughline",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "turbo run dev",
+    "inngest": "npx inngest-cli@latest dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.0",
+    "typescript": "^5"
+  },
+  "packageManager": "pnpm@11.2.2"
+}

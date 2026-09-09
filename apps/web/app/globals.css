@@ -1,0 +1,468 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-serif: var(--font-serif);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  /* shadcn sidebar tokens — mapped to Throughline design palette */
+  --color-sidebar: var(--surface);
+  --color-sidebar-foreground: var(--text-2);
+  --color-sidebar-primary: var(--oxblood);
+  --color-sidebar-primary-foreground: var(--text-inv);
+  --color-sidebar-accent: var(--peach-pale);
+  --color-sidebar-accent-foreground: var(--oxblood);
+  --color-sidebar-border: var(--border-hair);
+  --color-sidebar-ring: var(--ring);
+}
+
+:root {
+  /* --- shadcn semantic tokens (Throughline palette) --- */
+  --background: #f9f6f3; /* warm off-white */
+  --foreground: #1c1411; /* near-black, warm */
+
+  --card: #ffffff;
+  --card-foreground: #1c1411;
+
+  --popover: #ffffff;
+  --popover-foreground: #1c1411;
+
+  /* primary = oxblood (the action color) */
+  --primary: #8b2839;
+  --primary-foreground: #f6e9dd;
+
+  /* secondary = peach-pale surface */
+  --secondary: #fceedf;
+  --secondary-foreground: #8b2839;
+
+  --muted: #f1ece6;
+  --muted-foreground: #9c938c;
+
+  /* accent = peach (personality) */
+  --accent: #e89a63;
+  --accent-foreground: #1c1411;
+
+  --destructive: #c0392b;
+  --destructive-foreground: #ffffff;
+
+  --border: #eae3dc;
+  --input: #eae3dc;
+  --ring: #8b2839;
+
+  --radius: 0.625rem; /* 10px base */
+
+  /* --- raw brand tokens (GSAP-free CSS animation, SVG, hand-rolled bits) --- */
+  --bg: #f9f6f3;
+  --surface: #ffffff;
+  --surface-deep: #2a1418; /* oxblood-tinted dark band (pipeline) */
+
+  --border-hair: #eae3dc;
+  --border-soft: #f1ece6;
+
+  --peach: #e89a63;
+  --peach-bright: #f0a875; /* headline italic */
+  --peach-light: #f6cba8; /* hover, avatar borders */
+  --peach-pale: #fceedf; /* active card fill, badge bg */
+
+  --oxblood: #8b2839;
+  --oxblood-deep: #6e1e2c; /* hover */
+  --oxblood-pale: #f7e7e8; /* tag bg */
+
+  --text-1: #1c1411;
+  --text-2: #5b524c;
+  --text-3: #9c938c;
+  --text-inv: #f6e9dd; /* on the dark band */
+
+  /* semantic — review/status panels ONLY, never the marketing chrome */
+  --red-err: #c0392b;
+  --red-bg: #fdeaea;
+  --amber: #c4830a;
+  --amber-bg: #fef5e0;
+  --blue: #4a7fa5;
+  --blue-bg: #eaf2fb;
+  --green: #3e9e6f;
+  --green-bg: #eaf5ee;
+  --line-hi: #fcefe2; /* highlighted code line */
+
+  /* shadows — reserved for elements that genuinely float */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 40px rgba(40, 20, 24, 0.13);
+
+  /* max widths */
+  --max-content: 1200px;
+  --max-prose: 680px;
+  --max-cta: 560px;
+  --max-body: 480px;
+
+  /* fonts */
+  --font-serif: "DM Serif Display", Georgia, serif;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+/* ---------- Typography primitives ---------- */
+
+.eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--peach);
+}
+
+.h-display {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.9rem, 6.2vw, 5.1rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  color: var(--text-1);
+}
+.h-display em {
+  font-style: italic;
+  color: var(--peach-bright);
+}
+
+.h-section {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 3.3vw, 2.8rem);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: var(--text-1);
+}
+.h-section em {
+  font-style: italic;
+  color: var(--peach-bright);
+}
+
+/* ---------- Hero entrance (CSS-only, not GSAP) ---------- */
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-reveal {
+  opacity: 0;
+  animation: hero-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+@keyframes demo-settle {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.demo-reveal {
+  opacity: 0;
+  animation: demo-settle 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+}
+
+/* ---------- Hero subtitle rotator ---------- */
+
+.rot-wrap {
+  display: inline-flex;
+  align-items: baseline;
+  position: relative;
+}
+
+.rot {
+  display: inline-block;
+  position: relative;
+  min-width: 1ch;
+  font-weight: 600;
+  color: var(--oxblood);
+  white-space: nowrap;
+  animation: rot-enter 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.rot::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: var(--peach-light);
+  border-radius: 2px;
+  opacity: 0.7;
+}
+.rot.rot-leaving {
+  animation: rot-leave 0.34s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+@keyframes rot-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+@keyframes rot-leave {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+    filter: blur(4px);
+  }
+}
+
+/* ---------- Pipeline band (signature, CSS-only) ---------- */
+
+#pipe-line {
+  stroke-dasharray: 984;
+  stroke-dashoffset: 984;
+  transition: stroke-dashoffset 1.9s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.pipe-svg-wrap.is-visible #pipe-line {
+  stroke-dashoffset: 0;
+}
+
+.node-dot {
+  fill: #2a1418;
+  stroke: #4a2c30;
+  stroke-width: 1.5;
+  transition: fill 0.22s ease, stroke 0.22s ease;
+  transition-delay: var(--node-delay, 0s);
+}
+.pipe-svg-wrap.is-visible .node-dot {
+  fill: #e89a63;
+  stroke: #8b2839;
+}
+
+/* The one looping animation allowed on the page (DESIGN.md §8.6) */
+#traveler {
+  cx: 58px;
+  opacity: 0;
+  animation: pipeline-travel 5s ease-in-out infinite;
+  animation-play-state: paused;
+}
+.pipe-svg-wrap.is-visible #traveler {
+  animation-play-state: running;
+}
+@keyframes pipeline-travel {
+  0% {
+    cx: 58px;
+    opacity: 0;
+  }
+  4% {
+    opacity: 1;
+  }
+  56% {
+    cx: 1042px;
+    opacity: 1;
+  }
+  60% {
+    cx: 1042px;
+    opacity: 0;
+  }
+  61% {
+    cx: 58px;
+  }
+  100% {
+    cx: 58px;
+    opacity: 0;
+  }
+}
+
+/* ---------- Testimonial quote mark ---------- */
+
+.quote-card::before {
+  content: "\201C";
+  font-family: var(--font-serif);
+  color: var(--peach);
+  font-size: 2.4rem;
+  line-height: 1;
+  position: absolute;
+  top: 1rem;
+  left: 1.4rem;
+  opacity: 0.5;
+}
+
+/* ---------- Generic scroll reveal (section content blocks) ---------- */
+
+.reveal-item {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--stagger-delay, 0s);
+}
+.reveal-stagger.is-visible .reveal-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.score-fill {
+  height: 100%;
+  display: block;
+  background: var(--oxblood);
+  border-radius: 4px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--stagger-delay, 0s);
+}
+.reveal-stagger.is-visible .score-fill {
+  transform: scaleX(var(--target-w, 1));
+}
+
+/* ---------- App UI animations (CSS-only, no GSAP) ---------- */
+
+@keyframes sheet-slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes sheet-slide-out {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+@keyframes backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes backdrop-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes card-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes stat-pop {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes app-spin {
+  to { transform: rotate(360deg); }
+}
+
+.sheet-enter {
+  animation: sheet-slide-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.sheet-exit {
+  animation: sheet-slide-out 0.22s cubic-bezier(0.4, 0, 1, 1) both;
+}
+.backdrop-enter {
+  animation: backdrop-in 0.25s ease both;
+}
+.backdrop-exit {
+  animation: backdrop-out 0.2s ease both;
+}
+
+.card-stagger {
+  opacity: 0;
+  animation: card-rise 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--card-delay, 0s);
+}
+.stat-stagger {
+  opacity: 0;
+  animation: stat-pop 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--stat-delay, 0s);
+}
+.fade-up {
+  opacity: 0;
+  animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--d, 0s);
+}
+.spin-slow {
+  animation: app-spin 1s linear infinite;
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

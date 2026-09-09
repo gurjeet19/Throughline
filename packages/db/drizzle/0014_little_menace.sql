@@ -1,0 +1,1 @@
+ALTER TABLE "task" ADD COLUMN "seq" integer DEFAULT 0 NOT NULL;
